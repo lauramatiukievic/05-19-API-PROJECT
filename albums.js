@@ -27,17 +27,17 @@ async function albumsName() {
 
     const userPhoto = await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=1l&_expand=thumbnailUrl`);
     const photoData = await userPhoto.json();
+    albumsDiv.append(titleData, userAuthor, userAlbumInfo);
     photoData.forEach(async (photos) => {
       const userAlbumPhoto = photos.thumbnailUrl;
       const userAlbumImage = document.createElement("img");
       userAlbumImage.src = userAlbumPhoto;
       const userPhotoLink = document.createElement("a");
       userPhotoLink.href = `https://via.placeholder.com/150/f66b97`;
+
       userPhotoLink.append(userAlbumImage);
       albumsDiv.append(userPhotoLink);
     });
-
-    albumsDiv.append(titleData, userAuthor, userAlbumInfo);
   });
 
   console.log(postAlbum);
