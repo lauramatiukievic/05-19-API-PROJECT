@@ -11,36 +11,30 @@ async function albumsName() {
   const albumsDiv = document.querySelector("#albums");
 
   const userAlbum = await fetch(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expand=user`);
-  const postAlbum = await userAlbum.json();
+  const dataAlbum = await userAlbum.json();
+  console.log(dataAlbum);
 
-  postAlbum.forEach(async (albums) => {
+  dataAlbum.forEach(async (albums) => {
     const userAlbumData = albums.title;
     const userAlbumAuthor = albums.user.name;
     const userAlbumPhotos = albums.photos;
     const titleData = document.createElement("h3");
-
     titleData.textContent = `ALBUMS TITLE: ${userAlbumData} `;
     const userAuthor = document.createElement("span");
     userAuthor.textContent = `By: ${userAlbumAuthor}`;
     const userAlbumInfo = document.createElement("p");
     userAlbumInfo.textContent = `Photos: (${userAlbumPhotos.length})`;
 
-    const userPhoto = await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=1l&_expand=thumbnailUrl`);
-    const photoData = await userPhoto.json();
-    albumsDiv.append(titleData, userAuthor, userAlbumInfo);
-    photoData.forEach(async (photos) => {
-      const userAlbumPhoto = photos.thumbnailUrl;
-      const userAlbumImage = document.createElement("img");
-      userAlbumImage.src = userAlbumPhoto;
-      const userPhotoLink = document.createElement("a");
-      userPhotoLink.href = `https://via.placeholder.com/150/f66b97`;
+    const userAlbumPhoto = albums.photos[0].thumbnailUrl;
+    console.log(userAlbumPhoto);
+    const userAlbumImage = document.createElement("img");
+    userAlbumImage.src = userAlbumPhoto;
+    const userPhotoLink = document.createElement("a");
+    userPhotoLink.href = userAlbumImage.src;
+    userPhotoLink.append(userAlbumImage);
 
-      userPhotoLink.append(userAlbumImage);
-      albumsDiv.append(userPhotoLink);
-    });
+    albumsDiv.append(titleData, userAuthor, userAlbumInfo, userPhotoLink);
   });
-
-  console.log(postAlbum);
 }
 
 albumsName();

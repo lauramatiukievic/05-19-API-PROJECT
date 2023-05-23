@@ -8,47 +8,29 @@
 console.log("veikia");
 
 async function geListByName() {
-  const userListUl = document.querySelector("#user-list");
-
-  const userList = await fetch("https://jsonplaceholder.typicode.com/users");
+  const userList = await fetch("https://jsonplaceholder.typicode.com/users?_embed=posts");
   const userData = await userList.json();
 
-  userData.forEach(async (user) => {
-    const userName = user.name;
-    const userId = user.id;
+  const userListElement = createUserList(userData);
+  const contanentEl = document.querySelector("#container");
+  contanentEl.append(userListElement);
+}
 
-    const userPost = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-    const postData = await userPost.json();
+function createUserList(users) {
+  const userListUl = document.createElement("ul");
+  users.forEach(async (user) => {
+    const userName = user.name;
 
     const liList = document.createElement("li");
     const linkElement = document.createElement("a");
-    linkElement.textContent = `${userName} ${postData.length}`;
+    linkElement.textContent = `${userName} ${users.length}`;
 
     linkElement.href = "user.html";
     liList.append(linkElement);
     userListUl.append(liList);
   });
+
+  return userListUl;
 }
 
 geListByName();
-
-// 2. Sukurti puslapį, kuriame bus atvaizduojami įrašai (posts). Kiekvienas įrašas turi:
-//   2.1. Pavadinimą. Tai turi būti nuoroda. Ji turi vesti į post.html puslapį.
-//   2.2. Autorių. Tai turi būti nuoroda. Ji turi vesti į user.html puslapį.
-//   2.3. Prie pavadinimo pridėti įrašo komentarų skaičių.
-
-// userData.forEach(async (user) => {
-//     const userName = user.name;
-//     const userId = user.id;
-
-//     const userPost = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-//     const postData = await userPost.json();
-
-//     const liList = document.createElement("li");
-//     const linkElement = document.createElement("a");
-//     linkElement.textContent = `${userName} ${postData.length}`;
-
-//     linkElement.href = "user.html";
-//     liList.append(linkElement);
-//     userListUl.append(liList);
-//   });
