@@ -1,40 +1,42 @@
-// 3. Tokiu pačiu principu, kaip ir vartotojų bei įrašų puslapiams, sukurti puslapį albumams (albums.html). Prie kiekvieno albumo turi būti:
-//   3.1. Parašytas jo pavadinimas.
-//   3.2. Parašytas vartotojo, sukūrusio šį albumą, vardas.
-//   3.3. Albume esančių nuotraukų skaičius.
-//   3.4. Viena nuotrauka.
-//   3.5. Šis elementas turi būti nuoroda
+// 8. Sukurti naują puslapį album.html ir jame atvaizduoti:
 
-console.log("veikia");
-
-async function albumsName() {
+import { fetchData, firstLetterUpperCase, getUrlParams } from "./function.js";
+import { API_URL } from "./config.js";
+async function albumName() {
+  const id = getUrlParams("album_id");
+  const contentDiv = document.querySelector("#container");
   const albumsDiv = document.querySelector("#albums");
 
-  const userAlbum = await fetch(`https://jsonplaceholder.typicode.com/albums?_limit=15&_embed=photos&_expand=user`);
-  const dataAlbum = await userAlbum.json();
-  console.log(dataAlbum);
+  const dataAlbum = await fetchData(`${API_URL}/albums/${id}?_expand=user&_embed=photos`);
+  const userAlbumData = dataAlbum.title;
+  const userAlbumAuthor = dataAlbum.user.name;
+  const titleData = document.createElement("h3");
+  titleData.textContent = `Album title: ${firstLetterUpperCase(userAlbumData)} `;
+  const userAuthor = document.createElement("a");
+  userAuthor.textContent = `By: ${userAlbumAuthor}`;
+  // const userId = dataAlbum.user.id;
+  //negrista albumai pagal varda, prisikabina prie to paties userio
+  userAuthor.href = "./user.html?user_id=" + dataAlbum.user.id;
 
-  dataAlbum.forEach(async (albums) => {
-    const userAlbumData = albums.title;
-    const userAlbumAuthor = albums.user.name;
-    const userAlbumPhotos = albums.photos;
-    const titleData = document.createElement("h3");
-    titleData.textContent = `ALBUMS TITLE: ${userAlbumData} `;
-    const userAuthor = document.createElement("span");
-    userAuthor.textContent = `By: ${userAlbumAuthor}`;
-    const userAlbumInfo = document.createElement("p");
-    userAlbumInfo.textContent = `Photos: (${userAlbumPhotos.length})`;
+  const backToEl = document.createElement("a");
+  backToEl.textContent = ` Back To Albums...`;
+  backToEl.href = `./album.html`;
 
-    const userAlbumPhoto = albums.photos[0].thumbnailUrl;
-    console.log(userAlbumPhoto);
+  dataAlbum.photos.forEach(async (photo) => {
+    const userAlbumPhoto = photo.thumbnailUrl;
     const userAlbumImage = document.createElement("img");
     userAlbumImage.src = userAlbumPhoto;
     const userPhotoLink = document.createElement("a");
-    userPhotoLink.href = userAlbumImage.src;
+    userPhotoLink.href = photo.url;
+    userPhotoLink.dataset.pswpHeight = "600";
+    userPhotoLink.dataset.pswpWidth = "600";
+
     userPhotoLink.append(userAlbumImage);
 
-    albumsDiv.append(titleData, userAuthor, userAlbumInfo, userPhotoLink);
+    albumsDiv.append(userPhotoLink);
   });
+
+  contentDiv.append(backToEl, titleData, userAuthor);
 }
 
-albumsName();
+albumName();

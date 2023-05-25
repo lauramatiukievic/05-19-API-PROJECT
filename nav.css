@@ -1,18 +1,113 @@
-.pageNav {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.titleElementLinkUser {
+  text-decoration: none;
+  color: black;
+}
+.ulTitleUser {
+  list-style-type: none;
 }
 
-.active {
-  background-color: green;
+.page-input {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+input {
+  padding: 12px 20px;
+}
+
+input[type="submit"] {
+  color: black;
+  background-color: rgb(138, 242, 242);
+}
+.pageNav {
+  display: flex;
+
+  background-color: white;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-right: 30px;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(138, 242, 242);
 }
 
 .linkName {
   text-transform: capitalize;
   text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.active {
+  font-size: 28px;
+  font-weight: 700;
 }
 
 .navigationUl {
   list-style-type: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 30px;
+}
+.user-posts {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.user-name-li {
+  list-style-type: none;
+}
+.user-name-link {
+  text-decoration: none;
+  color: black;
+}
+
+.container-user {
+  width: 25%;
+}
+
+.user-name-li {
+  font-size: 20px;
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(0, 0, 0);
+
+  background-color: azure;
+}
+
+.albums {
+  border: 2px solid black;
+}
+.albums-content {
+  margin-left: 30px;
+}
+
+.posts-author-title {
+  text-decoration: none;
+  color: black;
+
+  font-size: 20px;
+}
+
+.user-list {
+  list-style-type: circle;
+}
+.posts-element-title {
+  text-decoration: none;
+  color: black;
+  font-style: italic;
+  font-size: 20px;
 }

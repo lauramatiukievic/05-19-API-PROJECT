@@ -4,13 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Albumai</title>
+    <title>Albums</title>
     <link rel="stylesheet" href="nav.css" />
+    <link rel="stylesheet" href="photoswipe.css" />
   </head>
   <body>
-    <nav id="pageNav" class="pageNav"></nav>
+    <div class="pageNav">
+      <nav id="pageNav"></nav>
+      <form action="./search.html" id="ai-name-form" class="page-input">
+        <label for="name-input">Enter a name:</label>
+        <input type="text" name="person-name" id="name-input" />
+
+        <input type="submit" />
+      </form>
+    </div>
+
+    <div id="container"></div>
     <div id="albums"></div>
-    <script src="albums.js"></script>
     <script src="nav.js"></script>
+    <script type="module" src="albums.js"></script>
+
+    <script type="module">
+      import Lightbox from "./photoswipe-lightbox.esm.js";
+      const lightbox = new Lightbox({
+        gallery: "#albums",
+        children: "a",
+        pswpModule: () => import("./photoswipe.esm.js"),
+      });
+      lightbox.init();
+    </script>
   </body>
 </html>

@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="nav.css" />
   </head>
   <body>
-    <nav id="pageNav" class="pageNav"></nav>
+    <div class="pageNav">
+      <nav id="pageNav"></nav>
+      <form action="./search.html" id="ai-name-form" class="page-input">
+        <label for="name-input">Enter a name:</label>
+        <input type="text" name="person-name" id="name-input" />
+
+        <input type="submit" />
+      </form>
+    </div>
     <div id="container"></div>
-    <script src="user.js"></script>
+
+    <script type="module" src="user.js"></script>
     <script src="nav.js"></script>
   </body>
 </html>

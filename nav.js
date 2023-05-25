@@ -4,18 +4,20 @@ function navigation() {
   const pathName = window.location.href;
 
   const navContainer = document.querySelector("#pageNav");
+
   const menuLinks = [
     {
-      name: `home`,
-      url: `./nav.html`,
+      name: `Home`,
+      url: `./home.html`,
     },
+
     {
       name: `users`,
       url: `./index.html`,
     },
     {
-      name: `albums`,
-      url: `./albums.html`,
+      name: `album`,
+      url: `./album.html`,
     },
     {
       name: `posts`,

@@ -6,26 +6,30 @@
 // JSONPlaceholder - Free Fake REST API
 
 console.log("veikia");
-
+import { fetchData } from "./function.js";
+import { API_URL } from "./config.js";
 async function geListByName() {
-  const userList = await fetch("https://jsonplaceholder.typicode.com/users?_embed=posts");
-  const userData = await userList.json();
+  const userData = await fetchData(`${API_URL}/users?_embed=posts`);
 
   const userListElement = createUserList(userData);
-  const contanentEl = document.querySelector("#container");
+  const contanentEl = document.querySelector("#container-user");
   contanentEl.append(userListElement);
 }
 
 function createUserList(users) {
   const userListUl = document.createElement("ul");
+  userListUl.classList.add("user-list");
   users.forEach(async (user) => {
+    const userId = user.id;
     const userName = user.name;
 
     const liList = document.createElement("li");
+    liList.classList.add("user-name-li");
     const linkElement = document.createElement("a");
-    linkElement.textContent = `${userName} ${users.length}`;
+    linkElement.classList.add("user-name-link");
+    linkElement.textContent = `${userName} (Post total: ${users.length})`;
 
-    linkElement.href = "user.html";
+    linkElement.href = "./user.html?user_id=" + userId;
     liList.append(linkElement);
     userListUl.append(liList);
   });
