@@ -12,10 +12,9 @@ async function albumName() {
   const userAlbumAuthor = dataAlbum.user.name;
   const titleData = document.createElement("h3");
   titleData.textContent = `Album title: ${firstLetterUpperCase(userAlbumData)} `;
+
   const userAuthor = document.createElement("a");
   userAuthor.textContent = `By: ${userAlbumAuthor}`;
-  // const userId = dataAlbum.user.id;
-  //negrista albumai pagal varda, prisikabina prie to paties userio
   userAuthor.href = "./user.html?user_id=" + dataAlbum.user.id;
 
   const backToEl = document.createElement("a");

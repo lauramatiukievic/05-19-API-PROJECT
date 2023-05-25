@@ -18,3 +18,7 @@ export function getUrlParams(param) {
 
   return paramValue;
 }
+
+export default function search() {
+  const searchText = document.querySelector("#name-input");
+}

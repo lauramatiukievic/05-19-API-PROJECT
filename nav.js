@@ -41,6 +41,7 @@ function navigation() {
       pageElement.classList.add(`active`);
     }
   });
+
   return pagesUl;
 }
 
