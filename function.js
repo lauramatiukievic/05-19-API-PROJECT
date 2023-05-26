@@ -19,6 +19,10 @@ export function getUrlParams(param) {
   return paramValue;
 }
 
+export function getCurrentUrl() {
+  return window.location.pathname;
+}
+
 // export default function search() {
 //   const searchText = document.querySelector("#name-input");
 // }

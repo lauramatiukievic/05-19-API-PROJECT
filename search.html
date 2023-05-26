@@ -8,17 +8,22 @@
     <link rel="stylesheet" href="nav.css" />
   </head>
   <body>
-    <!-- <div class="pageNav">
-      <nav id="pageNav"></nav>
-    </div>
-
-    <form action="./search.html" id="ai-name-form" class="page-input">
-      <label for="name-input">Enter: </label>
+    <form action="./search.html" id="name-form" class="page-input">
+      <label for="name-input"> </label>
+      <select class="page-select" name="name-input" id="name-input">
+        <option value="posts">Posts</option>
+        <option value="users">Users</option>
+        <option value="comments">Comments</option>
+        <option value="albums">Albums</option>
+        <option value="photos">Photos</option>
+      </select>
       <input type="text" name="name" id="name-input" />
 
       <input type="submit" />
-    </form> -->
+    </form>
+
     <div id="container" class="container-search"></div>
+
     <script type="module" src="search.js"></script>
     <!-- <script src="nav.js"></script> -->
   </body>

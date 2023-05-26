@@ -8,24 +8,29 @@ import { API_URL } from "./config.js";
 import header from "./nav.js";
 async function searchPost() {
   const search = getUrlParams("search");
-  const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
-  const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
-  const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
-  console.log(searchDataUsers);
   const searchArea = document.querySelector("#container");
-  searchArea.before(header());
+  const searchInput = document.querySelector("#name-form");
+  searchInput.before(header());
 
-  if (searchDataUsers.length === 0 && searchDataPost.length === 0 && searchDataAlbums.length === 0) {
-    const searchDataNotFound = document.createElement("p");
-    searchDataNotFound.textContent = "Not found :(";
-    searchArea.append(searchDataNotFound);
-    console.log(searchDataNotFound);
-    return;
+  if (search) {
+    const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
+    const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
+    const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
+
+    console.log(searchDataUsers);
+
+    if (searchDataUsers.length === 0 && searchDataPost.length === 0 && searchDataAlbums.length === 0) {
+      const searchDataNotFound = document.createElement("p");
+      searchDataNotFound.textContent = "Not found :(";
+      searchArea.append(searchDataNotFound);
+      console.log(searchDataNotFound);
+      return;
+    }
+
+    searchArea.append(createUsers(searchDataUsers));
+    searchArea.append(createPosts(searchDataPost));
+    searchArea.append(createAlbum(searchDataAlbums));
   }
-
-  searchArea.append(createUsers(searchDataUsers));
-  searchArea.append(createPosts(searchDataPost));
-  searchArea.append(createAlbum(searchDataAlbums));
 }
 
 function createUsers(searchDataUsers) {

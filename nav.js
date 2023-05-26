@@ -1,6 +1,7 @@
 console.log("veikia");
 
 import { MAIN_MENU_ITEMS } from "./config.js";
+import { getCurrentUrl } from "./function.js";
 export default function header() {
   const headerElement = document.createElement("header");
   headerElement.classList.add("page-header");
@@ -10,24 +11,28 @@ export default function header() {
   pageTitle.textContent = "API Project";
   pageTitle.href = "./";
 
-  const searchForm = document.createElement("form");
-  searchForm.action = "./search.html";
-
-  const searchInput = document.createElement("input");
-  searchInput.type = "text";
-  searchInput.name = "search";
-  searchInput.id = "search";
-
-  const searchButton = document.createElement("button");
-  searchButton.type = "submit";
-  searchButton.textContent = "Search";
-
-  searchForm.append(searchInput, searchButton);
+  const url = getCurrentUrl();
+  console.log(url);
 
   const navigationElement = document.createElement("nav");
   navigationElement.classList.add("pageNav");
 
-  headerElement.append(pageTitle, navigationElement, searchForm);
+  headerElement.append(pageTitle, navigationElement);
+  if (url !== "/search.html") {
+    const searchForm = document.createElement("form");
+    searchForm.action = "./search.html";
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.name = "search";
+    searchInput.id = "search";
+
+    const searchButton = document.createElement("button");
+    searchButton.classList.add("search-button");
+    searchButton.type = "submit";
+    searchButton.textContent = "Submit";
+    searchForm.append(searchInput, searchButton);
+    headerElement.append(searchForm);
+  }
 
   const menuList = document.createElement("ul");
   menuList.classList.add("menu", "main-menu");

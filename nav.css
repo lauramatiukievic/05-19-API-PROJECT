@@ -25,6 +25,10 @@
   list-style-type: none;
 }
 
+.page-select {
+  padding: 12px 20px;
+}
+
 .page-input {
   display: flex;
   justify-content: center;
@@ -41,7 +45,11 @@ a {
 a:hover {
   font-weight: 700;
 }
-
+.search-button {
+  color: black;
+  background-color: rgb(138, 242, 242);
+  padding: 12px 20px;
+}
 input {
   padding: 12px 20px;
 }
@@ -98,7 +106,10 @@ body {
 }
 
 .albumsDiv {
-  width: 45%;
+  width: 35%;
+  border: 1px solid black;
+  box-shadow: 1px 2px black;
+  padding: 20px;
 }
 
 .user-name-li {
@@ -123,6 +134,11 @@ body {
   background-color: azure;
 }
 
+.photo-link {
+  display: flex;
+  justify-content: center;
+}
+
 .albums {
   border: 2px solid black;
 }
@@ -130,7 +146,9 @@ body {
   margin-left: 30px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .posts-author-title {

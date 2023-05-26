@@ -39,6 +39,7 @@ async function albumsName() {
     userAlbumImage.classList.add("albums");
     userAlbumImage.src = userAlbumPhoto;
     const userPhotoLink = document.createElement("a");
+    userPhotoLink.classList.add("photo-link");
     userPhotoLink.href = `./albums.html?album_id=` + albums.id;
     userPhotoLink.append(userAlbumImage);
 
