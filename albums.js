@@ -2,10 +2,13 @@
 
 import { fetchData, firstLetterUpperCase, getUrlParams } from "./function.js";
 import { API_URL } from "./config.js";
+import header from "./nav.js";
 async function albumName() {
   const id = getUrlParams("album_id");
   const contentDiv = document.querySelector("#container");
   const albumsDiv = document.querySelector("#albums");
+
+  contentDiv.before(header());
 
   const dataAlbum = await fetchData(`${API_URL}/albums/${id}?_expand=user&_embed=photos`);
   const userAlbumData = dataAlbum.title;

@@ -19,6 +19,15 @@
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  font-weight: 700;
+}
+
 input {
   padding: 12px 20px;
 }
@@ -27,7 +36,16 @@ input[type="submit"] {
   color: black;
   background-color: rgb(138, 242, 242);
 }
-.pageNav {
+
+.header-title {
+  text-decoration: none;
+  color: black;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 24px;
+  padding-left: 20px;
+  text-shadow: 2px 2px rgb(138, 242, 242);
+}
+.page-header {
   display: flex;
 
   background-color: white;
@@ -57,17 +75,16 @@ body {
   font-weight: 700;
 }
 
-.navigationUl {
+.menu {
   list-style-type: none;
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
   gap: 30px;
 }
-.user-posts {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+
+.albumsDiv {
+  width: 45%;
 }
 
 .user-name-li {
@@ -79,7 +96,7 @@ body {
 }
 
 .container-user {
-  width: 25%;
+  width: 30%;
 }
 
 .user-name-li {
@@ -97,6 +114,9 @@ body {
 }
 .albums-content {
   margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .posts-author-title {
@@ -114,4 +134,28 @@ body {
   color: black;
   font-style: italic;
   font-size: 20px;
+}
+.searchDataul {
+  list-style-type: none;
+}
+
+.searchDataLi {
+  color: black;
+  border: 1px solid black;
+  padding: 10px 20px;
+  box-shadow: 2px 4px black;
+}
+
+.searchDataOut {
+  color: black;
+  text-decoration: none;
+}
+
+.searchDataOut:hover {
+  font-weight: 700;
+}
+
+.container-search {
+  display: flex;
+  margin-top: 30px;
 }

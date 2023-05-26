@@ -1,5 +1,6 @@
 import { fetchData, firstLetterUpperCase, getUrlParams } from "./function.js";
 import { API_URL, POSTS_PER_PAGE } from "./config.js";
+import header from "./nav.js";
 async function getPosts() {
   const id = getUrlParams("user_id");
 
@@ -11,6 +12,8 @@ async function getPosts() {
     fetchUrl = `${API_URL}/posts?_limit=${POSTS_PER_PAGE}&_expand=user&_embed=comments`;
   }
   const userListUl = document.querySelector("#user-list");
+
+  userListUl.before(header());
   const postData = await fetchData(fetchUrl);
 
   postData.forEach(async (userPost) => {

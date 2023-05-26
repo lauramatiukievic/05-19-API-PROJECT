@@ -8,11 +8,13 @@
 console.log("veikia");
 import { fetchData } from "./function.js";
 import { API_URL } from "./config.js";
+import header from "./nav.js";
 async function geListByName() {
   const userData = await fetchData(`${API_URL}/users?_embed=posts`);
 
   const userListElement = createUserList(userData);
   const contanentEl = document.querySelector("#container-user");
+  contanentEl.before(header());
   contanentEl.append(userListElement);
 }
 

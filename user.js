@@ -10,11 +10,12 @@
 console.log("veikia");
 import { fetchData, firstLetterUpperCase, getUrlParams } from "./function.js";
 import { API_URL } from "./config.js";
-
+import header from "./nav.js";
 async function userData() {
   const id = getUrlParams("user_id");
 
   const userInfo = document.querySelector("#container");
+  userInfo.before(header());
 
   const postData = await fetchData(`${API_URL}/users/${id}?_embed=posts&_embed=albums`);
 

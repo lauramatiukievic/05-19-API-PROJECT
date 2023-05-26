@@ -8,13 +8,18 @@
 console.log("veikia");
 import { fetchData } from "./function.js";
 import { API_URL, ALBUMS_PER_PAGE } from "./config.js";
+import header from "./nav.js";
 async function albumsName() {
   const albumsDiv = document.querySelector("#albums");
+
+  albumsDiv.before(header());
 
   // const albumId= getUrlParams('album_id')
   const dataAlbum = await fetchData(`${API_URL}/albums?_limit=${ALBUMS_PER_PAGE}&_expand=user&_embed=photos`);
 
   dataAlbum.forEach(async (albums) => {
+    const albumContent = document.createElement("div");
+    albumContent.classList.add("albumsDiv");
     const userAlbumData = albums.title;
     const userAlbumAuthor = albums.user.name;
     const userAlbumPhotos = albums.photos;
@@ -37,7 +42,8 @@ async function albumsName() {
     userPhotoLink.href = `./albums.html?album_id=` + albums.id;
     userPhotoLink.append(userAlbumImage);
 
-    albumsDiv.append(titleData, userAuthor, userAlbumInfo, userPhotoLink);
+    albumContent.append(titleData, userAuthor, userAlbumInfo, userPhotoLink);
+    albumsDiv.append(albumContent);
   });
 }
 

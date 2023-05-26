@@ -5,64 +5,75 @@
 // 9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.
 import { fetchData, getUrlParams } from "./function.js";
 import { API_URL } from "./config.js";
-
+import header from "./nav.js";
 async function searchPost() {
   const search = getUrlParams("search");
-  const category = getUrlParams("category");
-  const searchData = await fetchData(`${API_URL}/${category}?q=${search}`);
-  console.log(searchData);
+  const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
+  const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
+  const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
+  console.log(searchDataUsers);
   const searchArea = document.querySelector("#container");
+  searchArea.before(header());
 
-  if (searchData.length === 0) {
+  if (searchDataUsers.length === 0 && searchDataPost.length === 0 && searchDataAlbums.length === 0) {
     const searchDataNotFound = document.createElement("p");
-    searchDataNotFound.textContent = "No found :(";
+    searchDataNotFound.textContent = "Not found :(";
     searchArea.append(searchDataNotFound);
+    console.log(searchDataNotFound);
     return;
   }
 
-  const searchResults = createSearchResults(category, searchData);
-  searchArea.append(searchResults);
+  searchArea.append(createUsers(searchDataUsers));
+  searchArea.append(createPosts(searchDataPost));
+  searchArea.append(createAlbum(searchDataAlbums));
 }
 
-function createSearchResults(category, searchData) {
-  if (category === "users") {
-    return createUsers(searchData);
-  } else if (category === "albums") {
-    return createAlbums(searchData);
-  } else if (category === "posts") {
-    return createPosts(searchData);
-  }
-}
+function createUsers(searchDataUsers) {
+  const searchDataUl = document.createElement("ul");
+  searchDataUl.classList.add("searchDataul");
 
-function createUsers(searchData) {
-  const searchResultsDiv = document.createElement("div");
-  searchData.forEach((item) => {
-    const searchDataOut = document.createElement("p");
-    searchDataOut.textContent = "User name: " + item.name;
-    searchResultsDiv.append(searchDataOut);
+  searchDataUsers.map((item) => {
+    const searchDataLi = document.createElement("li");
+    searchDataLi.classList.add("searchDataLi");
+    searchDataUl.append(searchDataLi);
+    const searchDataOut = document.createElement("a");
+    searchDataOut.classList.add("searchDataOut");
+    searchDataOut.textContent = "Info by Name: " + item.name;
+    searchDataOut.href = "./user.html?user_id=" + item.id;
+    searchDataLi.append(searchDataOut);
   });
-  return searchResultsDiv;
+  return searchDataUl;
 }
 
-function createAlbums(searchData) {
-  const searchResultsDiv = document.createElement("div");
-  searchData.forEach((item) => {
-    const searchDataOut = document.createElement("p");
-    searchDataOut.textContent = "Albums title: " + item.title;
-    searchResultsDiv.append(searchDataOut);
+function createPosts(searchDataPost) {
+  const searchDataUl = document.createElement("ul");
+  searchDataUl.classList.add("searchDataul");
+  searchDataPost.map((item) => {
+    const searchDataLi = document.createElement("li");
+    searchDataLi.classList.add("searchDataLi");
+    searchDataUl.append(searchDataLi);
+    const searchDataOut = document.createElement("a");
+    searchDataOut.classList.add("searchDataOut");
+    searchDataOut.textContent = "Post by title: " + item.title;
+    searchDataOut.href = "./post.html?post_id=" + item.id;
+    searchDataLi.append(searchDataOut);
   });
-  return searchResultsDiv;
+  return searchDataUl;
 }
-
-function createPosts(searchData) {
-  const searchResultsDiv = document.createElement("div");
-  searchData.forEach((item) => {
-    const searchDataOut = document.createElement("p");
-    searchDataOut.textContent = "Posts title: " + item.title;
-    searchResultsDiv.append(searchDataOut);
+function createAlbum(searchDataAlbums) {
+  const searchDataUl = document.createElement("ul");
+  searchDataUl.classList.add("searchDataul");
+  searchDataAlbums.map((item) => {
+    const searchDataLi = document.createElement("li");
+    searchDataLi.classList.add("searchDataLi");
+    searchDataUl.append(searchDataLi);
+    const searchDataOut = document.createElement("a");
+    searchDataOut.classList.add("searchDataOut");
+    searchDataOut.textContent = "Album by title: " + item.title;
+    searchDataOut.href = `./albums.html?album_id=` + item.id;
+    searchDataLi.append(searchDataOut);
   });
-
-  return searchResultsDiv;
+  return searchDataUl;
 }
 
 searchPost();

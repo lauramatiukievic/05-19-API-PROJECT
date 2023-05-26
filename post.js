@@ -2,9 +2,11 @@ console.log("veikia");
 // 7. Sukurti naują puslapį post.html ir jame atvaizduoti:
 import { fetchData, firstLetterUpperCase, getUrlParams } from "./function.js";
 import { API_URL } from "./config.js";
+import header from "./nav.js";
 async function singlePost() {
   const id = getUrlParams("post_id");
   const postContainer = document.querySelector("#container");
+  postContainer.before(header());
 
   const postData = await fetchData(`${API_URL}/posts/${id}?_expand=user&_embed=comments`);
 
