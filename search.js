@@ -8,28 +8,66 @@ import { API_URL } from "./config.js";
 import header from "./nav.js";
 async function searchPost() {
   const search = getUrlParams("search");
+  const category = getUrlParams("category");
+
   const searchArea = document.querySelector("#container");
   const searchInput = document.querySelector("#name-form");
   searchInput.before(header());
 
+  if (category) {
+    const selecetEl = document.querySelector("#name-input");
+    selecetEl.value = category;
+  }
+
   if (search) {
-    const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
-    const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
-    const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
+    const selecetEl = document.querySelector("#name-output");
+    selecetEl.value = search;
 
-    console.log(searchDataUsers);
+    if (!category) {
+      const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
+      const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
+      const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
 
-    if (searchDataUsers.length === 0 && searchDataPost.length === 0 && searchDataAlbums.length === 0) {
-      const searchDataNotFound = document.createElement("p");
-      searchDataNotFound.textContent = "Not found :(";
-      searchArea.append(searchDataNotFound);
-      console.log(searchDataNotFound);
-      return;
+      console.log(searchDataUsers);
+
+      if (searchDataUsers.length === 0 && searchDataPost.length === 0 && searchDataAlbums.length === 0) {
+        const searchDataNotFound = document.createElement("p");
+        searchDataNotFound.textContent = "Not found :(";
+        searchArea.append(searchDataNotFound);
+        return;
+      }
+
+      searchArea.append(createUsers(searchDataUsers));
+      searchArea.append(createPosts(searchDataPost));
+      searchArea.append(createAlbum(searchDataAlbums));
+    } else if (category === "posts") {
+      const searchDataPost = await fetchData(`${API_URL}/posts?q=${search}`);
+      if (searchDataPost.length === 0) {
+        const searchDataNotFound = document.createElement("p");
+        searchDataNotFound.textContent = "Not found :(";
+        searchArea.append(searchDataNotFound);
+        return;
+      }
+      searchArea.append(createPosts(searchDataPost));
+    } else if (category === "users") {
+      const searchDataUsers = await fetchData(`${API_URL}/users?q=${search}`);
+      if (searchDataUsers.length === 0) {
+        const searchDataNotFound = document.createElement("p");
+        searchDataNotFound.textContent = "Not found :(";
+        searchArea.append(searchDataNotFound);
+        return;
+      }
+      searchArea.append(createUsers(searchDataUsers));
+    } else if (category === "albums") {
+      const searchDataAlbums = await fetchData(`${API_URL}/albums?q=${search}`);
+      if (searchDataAlbums.length === 0) {
+        const searchDataNotFound = document.createElement("p");
+        searchDataNotFound.textContent = "Not found :(";
+        searchArea.append(searchDataNotFound);
+        return;
+      }
+      searchArea.append(createAlbum(searchDataAlbums));
     }
-
-    searchArea.append(createUsers(searchDataUsers));
-    searchArea.append(createPosts(searchDataPost));
-    searchArea.append(createAlbum(searchDataAlbums));
   }
 }
 
