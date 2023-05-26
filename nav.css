@@ -3,6 +3,20 @@
 *::after {
   box-sizing: border-box;
 }
+
+.homeTitle {
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 40px;
+  text-shadow: 2px 2px grey;
+}
+
+.postTitleEl {
+  display: flex;
+  justify-content: center;
+}
 .titleElementLinkUser {
   text-decoration: none;
   color: black;

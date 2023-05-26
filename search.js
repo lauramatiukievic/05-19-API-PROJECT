@@ -38,7 +38,7 @@ function createUsers(searchDataUsers) {
     searchDataUl.append(searchDataLi);
     const searchDataOut = document.createElement("a");
     searchDataOut.classList.add("searchDataOut");
-    searchDataOut.textContent = "Info by Name: " + item.name;
+    searchDataOut.textContent = "User: " + item.name;
     searchDataOut.href = "./user.html?user_id=" + item.id;
     searchDataLi.append(searchDataOut);
   });
